@@ -1,25 +1,21 @@
+from config_manager import ConfigManager
 import os
 
 class Kernel:
     def __init__(self):
         self.running = True
-        self.version_info = self.get_version()
+        self.config_manager = ConfigManager()
+        self.version_info = self.config_manager.get("version", "0.0.0")
         self.commands = {
             'help': self.help,
             'exit': self.exit,
             'version': self.version,
         }
-        print("What up doe!")
-        print("tomOS Kernel v", self.version_info)
+        welcome_message = self.config_manager.get("kernel.welcome_message", "What up doe!")
+        print(welcome_message)
+        print(f"tomOS Kernel v {self.version_info}")
         print("Type 'help' for a list of commands.")
 
-    def get_version(self):
-        # attempt to read the version from a VERSION file
-        if os.path.exists("VERSION"):
-            with open("VERSION", "r") as f:
-                return f.read().strip()
-        return "0.0.0"
-    
     def help(self):
         print("Available commands:")
         for command in self.commands:

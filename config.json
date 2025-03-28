@@ -1,0 +1,18 @@
+ç{
+    "version": "0.1.0",
+    "kernel": {
+        "welcome_message": "What up doe!",
+        "commands": [
+            "help",
+            "exit",
+            "version"
+        ]
+    },
+    "scheduler": {
+        "quantum": 1,
+        "max_processes": 10
+    },
+    "memory": {
+        "size": 1024
+    }
+}
