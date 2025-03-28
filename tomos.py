@@ -1,12 +1,19 @@
+from config_manager import ConfigManager
+import os
+
 class Kernel:
     def __init__(self):
         self.running = True
+        self.config_manager = ConfigManager()
+        self.version_info = self.config_manager.get("version", "0.0.0")
         self.commands = {
             'help': self.help,
-            'exit': self.exit
+            'exit': self.exit,
+            'version': self.version,
         }
-        print("What up doe!")
-        print("Welcome to TomOS Kernel!")
+        welcome_message = self.config_manager.get("kernel.welcome_message", "What up doe!")
+        print(welcome_message)
+        print(f"tomOS Kernel v {self.version_info}")
         print("Type 'help' for a list of commands.")
 
     def help(self):
@@ -15,12 +22,15 @@ class Kernel:
             print(f" - {command}")
 
     def exit(self):
-        print("Shutting down TomOS Kernel.")
+        print("Shutting down tomOS Kernel.")
         self.running = False
+    
+    def version(self):
+        print(f"tomOS Kernel version {self.version_info}")
 
     def run(self):
         while self.running:
-            cmd = input("pyos> ").strip().lower()
+            cmd = input("tomos> ").strip().lower()
             if cmd in self.commands:
                 self.commands[cmd]()
             else:
